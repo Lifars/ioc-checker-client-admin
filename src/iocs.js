@@ -96,20 +96,6 @@ const iocEntrySchema = {
             ],
             "pattern": "^(.*)$"
         },
-        "searchType": {
-            "$id": "#/properties/searchType",
-            "type": "string",
-            "enum": [
-                "EXACT",
-                "REGEX"
-            ],
-            "title": "The Searchtype Schema",
-            "default": "",
-            "examples": [
-                "EXACT"
-            ],
-            "pattern": "^(.*)$"
-        },
         "name": {
             "$id": "#/properties/name",
             "type": "string",
@@ -155,6 +141,20 @@ const iocEntrySchema = {
                 "valueName"
             ],
             "properties": {
+                "search": {
+                    "$id": "#/properties/registryCheck/searchType",
+                    "type": "string",
+                    "enum": [
+                        "EXACT",
+                        "REGEX"
+                    ],
+                    "title": "The RegistryCheck SearchTtype Schema",
+                    "default": "",
+                    "examples": [
+                        "EXACT"
+                    ],
+                    "pattern": "^(.*)$"
+                },
                 "key": {
                     "$id": "#/properties/offspring/items/properties/fileCheck/properties/key",
                     "type": "string",
@@ -198,6 +198,20 @@ const iocEntrySchema = {
                 "name"
             ],
             "properties": {
+                "search": {
+                    "$id": "#/properties/fileCheck/searchType",
+                    "type": "string",
+                    "enum": [
+                        "EXACT",
+                        "REGEX"
+                    ],
+                    "title": "The FileCheck SearchType Schema",
+                    "default": "",
+                    "examples": [
+                        "EXACT"
+                    ],
+                    "pattern": "^(.*)$"
+                },
                 "name": {
                     "$id": "#/properties/offspring/items/properties/fileCheck/properties/name",
                     "type": "string",
@@ -214,7 +228,7 @@ const iocEntrySchema = {
                         "object",
                         "null"
                     ],
-                    "title": "The Hash Schema",
+                    "title": "The FileCheck Hash Schema",
                     "default": null,
                     "required": [
                         "algorithm",
@@ -251,48 +265,191 @@ const iocEntrySchema = {
         },
         "mutexCheck": {
             "$id": "#/properties/mutexCheck",
-            "type": "boolean",
-            "title": "The Mutexcheck Schema",
-            "default": false,
-            "examples": [
-                false
-            ]
+            "type": [
+                "object",
+                "null"
+            ],
+            "title": "The MutexCheck Schema",
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "$id": "#/properties/mutexCheck/data",
+                    "type": "array",
+                    "title": "The MutexCheck Data Schema",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
         },
         "processCheck": {
-            "$id": "#/properties/processCheck",
-            "type": "boolean",
-            "title": "The Processcheck Schema",
-            "default": false,
-            "examples": [
-                false
-            ]
+            "$id": "#/properties/offspring/items/properties/processCheck",
+            "type": [
+                "object",
+                "null"
+            ],
+            "title": "The ProcessCheck Schema",
+            "required": [
+            ],
+            "properties": {
+                "search": {
+                    "$id": "#/properties/processCheck/searchType",
+                    "type": "string",
+                    "enum": [
+                        "EXACT",
+                        "REGEX"
+                    ],
+                    "title": "The ProcessCheck SearchType Schema",
+                    "default": "",
+                    "examples": [
+                        "EXACT"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "data": {
+                    "$id": "#/properties/processCheck/data",
+                    "type": "array",
+                    "title": "The ProcessCheck Data Schema",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "hash": {
+                    "$id": "#/properties/offspring/items/properties/processCheck/properties/hash",
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "title": "The ProcessCheck Hash Schema",
+                    "default": null,
+                    "required": [
+                        "algorithm",
+                        "value"
+                    ],
+                    "properties": {
+                        "algorithm": {
+                            "$id": "#/properties/offspring/items/properties/processCheck/properties/name/hash/algorithm",
+                            "type": "string",
+                            "enum": [
+                                "MD5",
+                                "SHA1",
+                                "SHA256"
+                            ],
+                            "title": "The ProcessCheck Hash Algorithm Schema",
+                            "examples": [
+                                "SHA256"
+                            ],
+                            "pattern": "^(.*)$"
+                        },
+                        "value": {
+                            "$id": "#/properties/offspring/items/properties/processCheck/properties/name/hash/value",
+                            "type": "string",
+                            "title": "The ProcessCheck Hash Value Schema",
+                            "default": "",
+                            "examples": [
+                                "b024008e678717e7912bde5e3f1970973f2d4c0d4c10a91e22fc96a61d31df26"
+                            ],
+                            "pattern": "^(.*)$"
+                        }
+                    }
+                }
+            }
         },
         "dnsCheck": {
             "$id": "#/properties/dnsCheck",
-            "type": "boolean",
-            "title": "The Dnscheck Schema",
-            "default": false,
-            "examples": [
-                false
-            ]
+            "type": [
+                "object",
+                "null"
+            ],
+            "title": "The DnsCheck Schema",
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "$id": "#/properties/dnsCheck/data",
+                    "type": "array",
+                    "title": "The DnsCheck Data Schema",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
         },
         "connsCheck": {
             "$id": "#/properties/connsCheck",
-            "type": "boolean",
-            "title": "The Connscheck Schema",
-            "default": false,
-            "examples": [
-                false
-            ]
+            "type": [
+                "object",
+                "null"
+            ],
+            "title": "The ConnsCheck Schema",
+            "required": [
+                "search",
+                "data"
+            ],
+            "properties": {
+                "search": {
+                    "$id": "#/properties/connsCheck/searchType",
+                    "type": "string",
+                    "enum": [
+                        "IP",
+                        "EXACT",
+                        "REGEX"
+                    ],
+                    "title": "The ConnsCheck SearchType Schema",
+                    "default": "",
+                    "examples": [
+                        "IP", "EXACT", "REGEX"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "data": {
+                    "$id": "#/properties/connsCheck/data",
+                    "type": "array",
+                    "title": "The ConnsCheck Data Schema",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
         },
         "certsCheck": {
             "$id": "#/properties/certsCheck",
-            "type": "boolean",
-            "title": "The Certscheck Schema",
-            "default": false,
-            "examples": [
-                false
-            ]
+            "type": [
+                "object",
+                "null"
+            ],
+            "title": "The CertsCheck Schema",
+            "required": [
+                "search",
+                "data"
+            ],
+            "properties": {
+                "search": {
+                    "$id": "#/properties/certsCheck/searchType",
+                    "type": "string",
+                    "enum": [
+                        "DOMAIN",
+                        "ISSUER"
+                    ],
+                    "title": "The CertsCheck SearchType Schema",
+                    "default": "",
+                    "examples": [
+                        "DOMAIN", "ISSUER"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "data": {
+                    "$id": "#/properties/certsCheck/data",
+                    "type": "array",
+                    "title": "The CertsCheck Data Schema",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
         }
     }
 };
@@ -300,10 +457,10 @@ const iocEntrySchema = {
 
 const iocDefinitionExample = {
     "evalPolicy": "ONE or ALL ", // "ONE", "ALL" (optional)
-    "searchType": "EXACT or REGEX", // "EXACT", "ONE" (optional)
     "name": "DarthVader", // (optional)
     "childEvalPolicy": "ONE or ALL", // "ONE", "ALL" (optional)
     "fileCheck": { // (optional)
+        "search": "EXACT or REGEX", // "EXACT", "REGEX" (optional)
         "name": "C:/Users/IEUser/Documents/Leia.txt",
         "hash": { // (optional)
             "algorithm": "MD5 or SHA1 or SHA256", // "MD5", "SHA1", "SHA256"
@@ -311,15 +468,16 @@ const iocDefinitionExample = {
         }
     },
     "registryCheck": { // (optional)
+        "search": "EXACT or REGEX", // "EXACT", "REGEX" (optional)
         "key": "HKLM/Something/Something/Something",
         "valueName": "Dark side",
         "value": "777" // (optional)
     },
-    "mutexCheck": false, // (optional)
-    "processCheck": false, // (optional)
-    "dnsCheck": false, // (optional)
-    "connsCheck": false, // (optional)
-    "certsCheck": false, // (optional)
+    // "mutexCheck": false, // (optional)
+    // "processCheck": false, // (optional)
+    // "dnsCheck": false, // (optional)
+    // "connsCheck": false, // (optional)
+    // "certsCheck": false, // (optional)
     "offspring": [ "Array of child Ioc definitions." ]
 };
 
