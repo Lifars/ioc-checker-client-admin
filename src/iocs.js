@@ -276,11 +276,8 @@ const iocEntrySchema = {
             "properties": {
                 "data": {
                     "$id": "#/properties/mutexCheck/data",
-                    "type": "array",
-                    "title": "The MutexCheck Data Schema",
-                    "items": {
-                        "type": "string"
-                    }
+                    "type": "string",
+                    "title": "The MutexCheck Data Schema"
                 }
             }
         },
@@ -365,16 +362,13 @@ const iocEntrySchema = {
             ],
             "title": "The DnsCheck Schema",
             "required": [
-                "data"
+                "name"
             ],
             "properties": {
-                "data": {
-                    "$id": "#/properties/dnsCheck/data",
-                    "type": "array",
-                    "title": "The DnsCheck Data Schema",
-                    "items": {
-                        "type": "string"
-                    }
+                "name": {
+                    "$id": "#/properties/dnsCheck/name",
+                    "type": "string",
+                    "title": "The DnsCheck Name Schema"
                 }
             }
         },
