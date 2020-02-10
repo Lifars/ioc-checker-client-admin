@@ -49,7 +49,10 @@ class RAJsonInput extends Component {
 
     handleValueChange(value) {
         this.setState({value});
+        // console.log("VC I: " + JSON.stringify(this.props.input));
+        // console.log("VC V: " + JSON.stringify(value));
         this.props.input.onChange(value);
+        // console.log("VC II: " + JSON.stringify(this.props.input));
     };
 
     handleTabChange(tab) {
@@ -57,8 +60,6 @@ class RAJsonInput extends Component {
     };
 
     render() {
-
-        console.log("SCHEMA: " + JSON.stringify(this.props.schema));
         return (
             <FormControl fullWidth={true} className='ra-input-mde'>
 

@@ -1,10 +1,23 @@
 import React from 'react';
-import {Filter, List, Datagrid, TextField, DateField, EditButton, Edit, SimpleForm, TextInput, Create} from 'react-admin';
+import {
+    Filter,
+    List,
+    Datagrid,
+    TextField,
+    DateField,
+    EditButton,
+    Edit,
+    SimpleForm,
+    TextInput,
+    Create
+} from 'react-admin';
 import JsonField from "./JsonField";
 import RaJsonInput from "./ra-input-json2";
+import RaJsonObjectInput from "./ra-input-json3";
 import Typography from '@material-ui/core/Typography';
 import {TextArea} from "react-mde";
 import ReactJson from "react-json-view";
+import {SchemaTypes} from 'object-editor-react';
 
 
 // import { JSONEditor, JSONEView } from 'ra-input-json';
@@ -19,7 +32,7 @@ const IocFilter = (props) => (
 );
 
 export const IocList = props => (
-    <List  filters={<IocFilter />} {...props}>
+    <List filters={<IocFilter/>} {...props}>
         <Datagrid>
             <TextField source="id"/>
             <TextField source="name"/>
@@ -33,11 +46,13 @@ export const IocList = props => (
 );
 
 export const IocEdit = props => (
-    <Edit aside={<Aside />} {...props}>
+    // <Edit aside={<Aside/>} {...props}>
+    <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" label="Id"/>
             <TextInput source="name" label="Name"/>
-            <RaJsonInput source="definition" schema={iocEntrySchema}/>
+            <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
+            {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
             {/*<TextInput source="definition"*/}
             {/*           label="Definition"*/}
             {/*           multiline={true}*/}
@@ -53,10 +68,11 @@ export const IocEdit = props => (
 );
 
 export const IocCreate = props => (
-    <Create aside={<Aside />} {...props}>
+    <Create {...props}>
         <SimpleForm>
             <TextInput source="name" label="Name"/>
-            <RaJsonInput source="definition" schema={iocEntrySchema}/>
+            <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
+            {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
             {/*<TextInput source="definition"*/}
             {/*           label="Definition"*/}
             {/*           multiline={true}*/}
@@ -67,12 +83,134 @@ export const IocCreate = props => (
     </Create>
 );
 
-const Aside = () => (
-    <div style={{ width: 200, margin: '1em' }}>
-        <Typography variant="h6">Ioc <strong>definition</strong> example</Typography>
-        <ReactJson src={iocDefinitionExample} enableClipboard={true} />;
-    </div>
-);
+// const Aside = () => (
+//     <div style={{width: 200, margin: '1em'}}>
+//         <Typography variant="h6">Ioc <strong>definition</strong> example</Typography>
+//         <ReactJson src={iocDefinitionExample} enableClipboard={true}/>;
+//     </div>
+// );
+
+const iocDefinitionSchema = {
+    name: SchemaTypes.string({required: false}),
+    evalPolicy: SchemaTypes.string({required: false}),
+    childEvalPolicy: SchemaTypes.string({required: false}),
+    registryCheck: {
+        search: SchemaTypes.string({required: false}),
+        key: SchemaTypes.string({required: true}),
+        valueName: SchemaTypes.string({required: true}),
+        value: SchemaTypes.string({required: false}),
+    },
+    fileCheck: {
+        search: SchemaTypes.string({required: false}),
+        name: SchemaTypes.string({required: true}),
+        hash: {
+            algorithm: SchemaTypes.string({required: true}),
+            value: SchemaTypes.string({required: true}),
+        }
+    },
+    mutexCheck: {
+        name: SchemaTypes.string({required: true}),
+    },
+    processCheck: {
+        search: SchemaTypes.string({required: false}),
+        name: SchemaTypes.string({required: false}),
+        hash: {
+            algorithm: SchemaTypes.string({required: true}),
+            value: SchemaTypes.string({required: true}),
+        }
+    },
+    dnsCheck: {
+        name: SchemaTypes.string({required: true}),
+    },
+    connsCheck: {
+        search: SchemaTypes.string({required: false}),
+        name: SchemaTypes.string({required: true}),
+    },
+    certsCheck: {
+        name: SchemaTypes.string({required: true}),
+    },
+    offspring: SchemaTypes.arrayOf({
+        name: SchemaTypes.string({required: false}),
+        evalPolicy: SchemaTypes.string({required: false}),
+        childEvalPolicy: SchemaTypes.string({required: false}),
+        registryCheck: {
+            search: SchemaTypes.string({required: false}),
+            key: SchemaTypes.string({required: true}),
+            valueName: SchemaTypes.string({required: true}),
+            value: SchemaTypes.string({required: false}),
+        },
+        fileCheck: {
+            search: SchemaTypes.string({required: false}),
+            name: SchemaTypes.string({required: true}),
+            hash: {
+                algorithm: SchemaTypes.string({required: true}),
+                value: SchemaTypes.string({required: true}),
+            }
+        },
+        mutexCheck: {
+            name: SchemaTypes.string({required: true}),
+        },
+        processCheck: {
+            search: SchemaTypes.string({required: false}),
+            name: SchemaTypes.string({required: false}),
+            hash: {
+                algorithm: SchemaTypes.string({required: true}),
+                value: SchemaTypes.string({required: true}),
+            }
+        },
+        dnsCheck: {
+            name: SchemaTypes.string({required: true}),
+        },
+        connsCheck: {
+            search: SchemaTypes.string({required: false}),
+            name: SchemaTypes.string({required: true}),
+        },
+        certsCheck: {
+            name: SchemaTypes.string({required: true}),
+        },
+        offspring: SchemaTypes.arrayOf({
+            name: SchemaTypes.string({required: false}),
+            evalPolicy: SchemaTypes.string({required: false}),
+            childEvalPolicy: SchemaTypes.string({required: false}),
+            registryCheck: {
+                search: SchemaTypes.string({required: false}),
+                key: SchemaTypes.string({required: true}),
+                valueName: SchemaTypes.string({required: true}),
+                value: SchemaTypes.string({required: false}),
+            },
+            fileCheck: {
+                search: SchemaTypes.string({required: false}),
+                name: SchemaTypes.string({required: true}),
+                hash: {
+                    algorithm: SchemaTypes.string({required: true}),
+                    value: SchemaTypes.string({required: true}),
+                }
+            },
+            mutexCheck: {
+                name: SchemaTypes.string({required: true}),
+            },
+            processCheck: {
+                search: SchemaTypes.string({required: false}),
+                name: SchemaTypes.string({required: false}),
+                hash: {
+                    algorithm: SchemaTypes.string({required: true}),
+                    value: SchemaTypes.string({required: true}),
+                }
+            },
+            dnsCheck: {
+                name: SchemaTypes.string({required: true}),
+            },
+            connsCheck: {
+                search: SchemaTypes.string({required: false}),
+                name: SchemaTypes.string({required: true}),
+            },
+            certsCheck: {
+                name: SchemaTypes.string({required: true}),
+            },
+            offspring: SchemaTypes.arrayOf(SchemaTypes.object)
+        })()
+    })(),
+};
 
 const iocEntrySchema = {
     "definitions": {},
@@ -271,11 +409,11 @@ const iocEntrySchema = {
             ],
             "title": "The MutexCheck Schema",
             "required": [
-                "data"
+                "name"
             ],
             "properties": {
-                "data": {
-                    "$id": "#/properties/mutexCheck/data",
+                "name": {
+                    "$id": "#/properties/mutexCheck/name",
                     "type": "string",
                     "title": "The MutexCheck Data Schema"
                 }
@@ -288,8 +426,7 @@ const iocEntrySchema = {
                 "null"
             ],
             "title": "The ProcessCheck Schema",
-            "required": [
-            ],
+            "required": [],
             "properties": {
                 "search": {
                     "$id": "#/properties/processCheck/searchType",
@@ -305,13 +442,10 @@ const iocEntrySchema = {
                     ],
                     "pattern": "^(.*)$"
                 },
-                "data": {
-                    "$id": "#/properties/processCheck/data",
-                    "type": "array",
-                    "title": "The ProcessCheck Data Schema",
-                    "items": {
-                        "type": "string"
-                    }
+                "name": {
+                    "$id": "#/properties/processCheck/name",
+                    "type": "string",
+                    "title": "The ProcessCheck Data Schema"
                 },
                 "hash": {
                     "$id": "#/properties/offspring/items/properties/processCheck/properties/hash",
@@ -381,31 +515,27 @@ const iocEntrySchema = {
             "title": "The ConnsCheck Schema",
             "required": [
                 "search",
-                "data"
+                "name"
             ],
             "properties": {
                 "search": {
                     "$id": "#/properties/connsCheck/searchType",
                     "type": "string",
                     "enum": [
-                        "IP",
                         "EXACT",
                         "REGEX"
                     ],
                     "title": "The ConnsCheck SearchType Schema",
-                    "default": "",
+                    "default": "EXACT",
                     "examples": [
-                        "IP", "EXACT", "REGEX"
+                        "EXACT", "REGEX"
                     ],
                     "pattern": "^(.*)$"
                 },
-                "data": {
-                    "$id": "#/properties/connsCheck/data",
-                    "type": "array",
-                    "title": "The ConnsCheck Data Schema",
-                    "items": {
-                        "type": "string"
-                    }
+                "name": {
+                    "$id": "#/properties/connsCheck/name",
+                    "type": "string",
+                    "title": "The ConnsCheck Data Schema"
                 }
             }
         },
@@ -417,31 +547,28 @@ const iocEntrySchema = {
             ],
             "title": "The CertsCheck Schema",
             "required": [
-                "search",
-                "data"
+                // "search",
+                "name"
             ],
             "properties": {
-                "search": {
-                    "$id": "#/properties/certsCheck/searchType",
+                // "search": {
+                //     "$id": "#/properties/certsCheck/searchType",
+                //     "type": "string",
+                //     "enum": [
+                //         "DOMAIN",
+                //         "ISSUER"
+                //     ],
+                //     "title": "The CertsCheck SearchType Schema",
+                //     "default": "",
+                //     "examples": [
+                //         "DOMAIN", "ISSUER"
+                //     ],
+                //     "pattern": "^(.*)$"
+                // },
+                "name": {
+                    "$id": "#/properties/certsCheck/name",
                     "type": "string",
-                    "enum": [
-                        "DOMAIN",
-                        "ISSUER"
-                    ],
-                    "title": "The CertsCheck SearchType Schema",
-                    "default": "",
-                    "examples": [
-                        "DOMAIN", "ISSUER"
-                    ],
-                    "pattern": "^(.*)$"
-                },
-                "data": {
-                    "$id": "#/properties/certsCheck/data",
-                    "type": "array",
-                    "title": "The CertsCheck Data Schema",
-                    "items": {
-                        "type": "string"
-                    }
+                    "title": "The CertsCheck Data Schema"
                 }
             }
         }
@@ -472,7 +599,7 @@ const iocDefinitionExample = {
     // "dnsCheck": false, // (optional)
     // "connsCheck": false, // (optional)
     // "certsCheck": false, // (optional)
-    "offspring": [ "Array of child Ioc definitions." ]
+    "offspring": ["Array of child Ioc definitions."]
 };
 
 // const iocDefinitionExample = `{ // Example of IOC definition
