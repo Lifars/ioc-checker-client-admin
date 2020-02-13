@@ -61,9 +61,7 @@ export const IocEdit = props => (
             {/*    // format={v => JSON.stringify(v)}*/}
             {/*           fullWidth={true}/>*/}
             {/*/!*<JSONEView source="name" />*!/*/}
-
         </SimpleForm>
-
     </Edit>
 );
 
@@ -79,7 +77,6 @@ export const IocCreate = props => (
             {/*           format={v => JSON.stringify(v, null, 4)}*/}
             {/*           fullWidth={true}/>*/}
         </SimpleForm>
-
     </Create>
 );
 
@@ -180,7 +177,7 @@ const iocDefinitionSchema = {
             },
             fileCheck: {
                 search: SchemaTypes.string({required: false}),
-                name: SchemaTypes.string({required: true}),
+                name: SchemaTypes.string({required: false}),
                 hash: {
                     algorithm: SchemaTypes.string({required: true}),
                     value: SchemaTypes.string({required: true}),
@@ -332,9 +329,6 @@ const iocEntrySchema = {
                 "null"
             ],
             "title": "The Filecheck Schema",
-            "required": [
-                "name"
-            ],
             "properties": {
                 "search": {
                     "$id": "#/properties/fileCheck/searchType",

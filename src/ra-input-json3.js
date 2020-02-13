@@ -98,7 +98,7 @@ class RAJsonObjectInput extends Component {
                     marginLeft: '10px',
                     marginTop: 0,
                 }}>
-                    <h4 style={{margin: '0 0 10px 0'}}>Data</h4>
+                    <h4 style={{margin: '0 0 10px 0'}}>Raw IOC definition</h4>
                     <pre>{JSON.stringify(this.state.value, null, '   ')}</pre>
                 </div>
             </div>

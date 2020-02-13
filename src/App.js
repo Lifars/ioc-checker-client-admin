@@ -8,11 +8,13 @@ import {ProbeReportList} from "./probe-reports";
 import UserIcon from '@material-ui/icons/Group';
 import ReportIcon from '@material-ui/icons/Report';
 import DevicesIcon from '@material-ui/icons/Devices';
+import TransformIcon from '@material-ui/icons/Transform';
 import Dashboard from './Dashboard';
 import myAuthProvider from './authProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
 import primaryColor from '@material-ui/core/colors/deepPurple';
 import secondaryColor from '@material-ui/core/colors/purple';
+import {FeedSourceCreate, FeedSourceEdit, FeedSourceList} from "./feed-sources";
 
 const MyLoginPage = () => <Login backgroundImage={null} />;
 
@@ -61,6 +63,7 @@ const App = () => (
         <Resource name="probe_reports" list={ProbeReportList} icon={ReportIcon}/>
         {/*<Resource name="probe_reports" list={ListGuesser}/>*/}
         <Resource name="users" list={UserList} icon={UserIcon}/>
+        <Resource name="feed_sources" list={FeedSourceList} create={FeedSourceCreate} edit={FeedSourceEdit} icon={TransformIcon}/>
         {/*<Resource name="posts" list={ListGuesser} edit={EditGuesser}/>*/}
     </Admin>
 );
