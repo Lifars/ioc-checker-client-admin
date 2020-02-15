@@ -37,21 +37,6 @@ class RAJsonObjectInput extends Component {
         this.change = updated.bind(this);
     }
 
-    // componentDidMount() {
-    //     const {
-    //         input: {value}
-    //     } = this.props;
-    //
-    //     this.setState({value});
-    //
-    //     this.converter = new Showdown.Converter({
-    //         tables: true,
-    //         simplifiedAutoLink: true,
-    //         strikethrough: true,
-    //         tasklists: true
-    //     });
-    // }
-
     // Handler called when a new object is added.
     // Just adds the object to the end of the array.
     add(newObject) {
@@ -104,26 +89,6 @@ class RAJsonObjectInput extends Component {
             </div>
                 </FormControl>
         );
-        // return (
-        //     // <FormControl fullWidth={true}>
-        //         <ObjectEditor
-        //             className='editor--outside'
-        //             object={this.state.value}
-        //             type={this.props.type}
-        //             onUpdateElement={(el, index) => {}}
-        //             onAddElement={(newElement) => {}}
-        //             onAddElement={(removedElement, index) => {}}
-        //         />
-        //         {/*<ObjectEditor*/}
-        //         {/*    className='editor--outside'*/}
-        //         {/*    object={this.props.input.value}*/}
-        //         {/*    type={this.props.type}*/}
-        //         {/*    onUpdateElement={this.change.bind(this)}*/}
-        //         {/*    onAddElement={this.add.bind(this)}*/}
-        //         {/*    onRemoveElements={this.remove.bind(this)}*/}
-        //         {/*/>*/}
-        //     // </FormControl>
-        // );
     }
 }
 
