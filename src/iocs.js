@@ -9,7 +9,9 @@ import {
     Edit,
     SimpleForm,
     TextInput,
-    Create
+    Create,
+    Show,
+    SimpleShowLayout
 } from 'react-admin';
 import JsonField from "./JsonField";
 import RaJsonInput from "./ra-input-json2";
@@ -45,12 +47,26 @@ export const IocList = props => (
     </List>
 );
 
+export const IocShow = props => (
+    <Show {...props}>
+        <SimpleShowLayout>
+            <TextField source="id"/>
+            <TextField source="name"/>
+            {/*<JSONEView source="definition" label="Definition"/>*/}
+            <JsonField source="definition"/>
+            <DateField source="created"/>
+            <DateField source="updated"/>
+        </SimpleShowLayout>
+    </Show>
+);
+
+
 export const IocEdit = props => (
     // <Edit aside={<Aside/>} {...props}>
     <Edit {...props}>
         <SimpleForm>
-            <TextInput disabled source="id" label="Id"/>
-            <TextInput source="name" label="Name"/>
+            <TextInput disabled source="id"/>
+            <TextInput source="name"/>
             <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
             {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
             {/*<TextInput source="definition"*/}

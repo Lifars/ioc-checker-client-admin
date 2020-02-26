@@ -1,10 +1,10 @@
 import React from 'react';
 import {Admin, Resource, ListGuesser, EditGuesser, Login} from 'react-admin';
 import iocServerDataProvider from "./iocServerDataProvider";
-import {IocCreate, IocEdit, IocList} from "./iocs"
+import {IocCreate, IocEdit, IocList, IocShow} from "./iocs"
 import {UserList} from "./users";
-import {ProbeCreate, ProbeList} from "./probes";
-import {ProbeReportList} from "./probe-reports";
+import {ProbeCreate, ProbeList, ProbeShow} from "./probes";
+import {ProbeReportList, ProbeReportShow} from "./probe-reports";
 import UserIcon from '@material-ui/icons/Group';
 import ReportIcon from '@material-ui/icons/Report';
 import DevicesIcon from '@material-ui/icons/Devices';
@@ -15,6 +15,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import primaryColor from '@material-ui/core/colors/deepPurple';
 import secondaryColor from '@material-ui/core/colors/purple';
 import {FeedSourceCreate, FeedSourceEdit, FeedSourceList} from "./feed-sources";
+import {List} from "@material-ui/core";
 
 const MyLoginPage = () => <Login backgroundImage={null} />;
 
@@ -57,13 +58,14 @@ const App = () => (
         dataProvider={dataProvider}
         loginPage={MyLoginPage}
         theme={myTheme}>
-        <Resource name="iocs" list={IocList} edit={IocEdit} create={IocCreate}/>
+        <Resource name="iocs" list={IocList} edit={IocEdit} create={IocCreate} show={IocShow}/>
         {/*<Resource name="iocs" list={IocList} edit={EditGuesser}/>*/}
-        <Resource name="probes" list={ProbeList} create={ProbeCreate} icon={DevicesIcon}/>
-        <Resource name="probe_reports" list={ProbeReportList} icon={ReportIcon}/>
+        <Resource name="probes" list={ProbeList} create={ProbeCreate} icon={DevicesIcon} show={ProbeShow}/>
+        <Resource name="probe_reports" list={ProbeReportList} show={ProbeReportShow} icon={ReportIcon}/>
         {/*<Resource name="probe_reports" list={ListGuesser}/>*/}
         <Resource name="users" list={UserList} icon={UserIcon}/>
         <Resource name="feed_sources" list={FeedSourceList} create={FeedSourceCreate} edit={FeedSourceEdit} icon={TransformIcon}/>
+        <Resource name="found_iocs"/>
         {/*<Resource name="posts" list={ListGuesser} edit={EditGuesser}/>*/}
     </Admin>
 );

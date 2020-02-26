@@ -1,9 +1,23 @@
 import React from 'react';
-import {List, Datagrid, TextField, DateField, PasswordInput, ReferenceField, Create, SimpleForm, TextInput, ReferenceInput, SelectInput, DateInput} from 'react-admin';
+import {
+    List,
+    Datagrid,
+    TextField,
+    DateField,
+    PasswordInput,
+    ReferenceField,
+    Create,
+    SimpleForm,
+    TextInput,
+    ReferenceInput,
+    SelectInput,
+    DateInput,
+    Show, SimpleShowLayout
+} from 'react-admin';
 
 export const ProbeList = props => (
     <List {...props}>
-        <Datagrid rowClick="edit">
+        <Datagrid rowClick="show">
             <TextField source="id" />
             <TextField source="name" />
             <DateField source="expires" />
@@ -26,4 +40,17 @@ export const ProbeCreate = props => (
             <PasswordInput source="apiKeyPlain"/>
         </SimpleForm>
     </Create>
+);
+
+export const ProbeShow = props => (
+    <Show {...props}>
+        <SimpleShowLayout>
+            <TextField source="name" />
+            <DateField source="expires" />
+            <ReferenceField source="userId" reference="users" label={"Owner"}>
+                <TextField source="email"/>
+            </ReferenceField>
+            {/*<PasswordInput source="apiKeyPlain"/>*/}
+        </SimpleShowLayout>
+    </Show>
 );

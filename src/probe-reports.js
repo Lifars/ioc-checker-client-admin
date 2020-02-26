@@ -1,22 +1,47 @@
 import React from 'react';
-import {List, ReferenceArrayField, Datagrid, TextField, DateField, ReferenceField, ArrayField, SingleFieldList, ChipField} from 'react-admin';
+import {
+    List,
+    Show,
+    ReferenceManyField,
+    SimpleShowLayout,
+    Pagination,
+    Datagrid,
+    TextField,
+    DateField,
+    ReferenceField,
+    NumberField
+} from 'react-admin';
+import JsonField from "./JsonField";
 
 export const ProbeReportList = props => (
     <List {...props}>
-        <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <ReferenceField source="probeId" reference="probes"><TextField source="id" /></ReferenceField>
-            {/*<ArrayField source="foundIocs"><SingleFieldList><ChipField /></SingleFieldList></ArrayField>*/}
-            {/*<ArrayField source="foundIocs"><ReferenceField source="." reference="iocs"><ChipField source="id" /></ReferenceField></ArrayField>*/}
-            <ReferenceArrayField reference="iocs" source="foundIocs" label={"Found IOCs"}><SingleFieldList><ChipField source="id" /></SingleFieldList></ReferenceArrayField>
-            {/*<ArrayField source="iocResults"><SingleFieldList><ReferenceField source="iocId" reference="iocs"><ChipField source="id" /></ReferenceField></SingleFieldList></ArrayField>*/}
-            {/*<ArrayField source="iocResults"><SingleFieldList><ChipField source="iocId" /></SingleFieldList></ArrayField>*/}
-            <ArrayField source="iocResults"><SingleFieldList><TextField source="data" /></SingleFieldList></ArrayField>
-            <ArrayField source="iocErrors"><SingleFieldList><TextField source="kind" /></SingleFieldList></ArrayField>
-            <DateField source="created" />
-            <DateField source="updated" />
-            <DateField source="probeTimestamp" />
+        <Datagrid rowClick="show">
+            <TextField source="id"/>
+            <ReferenceField source="probeId" reference="probes" link="show"><TextField source="id"/></ReferenceField>
+            <NumberField source="foundIocsCount" label={"Found IOCs count"}/>
+            <DateField source="created"/>
         </Datagrid>
     </List>
+);
+
+export const ProbeReportShow = props => (
+    <Show {...props}>
+        <SimpleShowLayout>
+            <TextField source="id"/>
+            <ReferenceField source="probeId" reference="probes" link="show"><TextField source="id"/></ReferenceField>
+            <DateField source="created"/>
+            <DateField source="updated"/>
+            <DateField source="probeTimestamp" label="Scan date"/>
+            <ReferenceManyField pagination={<Pagination/>} perPage={25} reference="found_iocs" target="ProbeReports"
+                                label={"Found IOCs"} link="show">
+                <Datagrid>
+                    <TextField source="iocId" label={"Id"}/>
+                    <ReferenceField source="iocId" reference="iocs" link={false}>
+                        <JsonField source="definition"/>
+                    </ReferenceField>
+                </Datagrid>
+            </ReferenceManyField>
+        </SimpleShowLayout>
+    </Show>
 );
 
