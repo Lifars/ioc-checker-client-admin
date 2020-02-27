@@ -63,31 +63,31 @@ class RAJsonObjectInput extends Component {
     render() {
         // console.log("INPUT: " + JSON.stringify(this.state.value));
         // console.log("SCHEMA: " + JSON.stringify(this.props.schema));
-       return (
+        return (
             <FormControl fullWidth={true}>
-            <div style={{display: 'flex', alignItems: 'flex-start', marginBottom: '20px'}}>
-                <ObjectEditor
-                    className='editor--outside'
-                    object={this.state.value}
-                    type={this.props.schema}
-                    onUpdateElement={this.change.bind(this)}
-                    onAddElement={this.add.bind(this)}
-                    onRemoveElements={this.remove.bind(this)}
-                />
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    background: '#f6f6f6',
-                    padding: '6px',
-                    boxShadow: '0px 6px 14px 0px #0000003d, 0px 2px 3px 0px #00000040',
-                    marginLeft: '10px',
-                    marginTop: 0,
-                }}>
-                    <h4 style={{margin: '0 0 10px 0'}}>Raw IOC definition</h4>
-                    <pre>{JSON.stringify(this.state.value, null, '   ')}</pre>
+                <div style={{display: 'flex', alignItems: 'flex-start', marginBottom: '20px'}}>
+                    <ObjectEditor
+                        className='editor--outside'
+                        object={this.state.value}
+                        type={this.props.schema}
+                        onUpdateElement={this.change.bind(this)}
+                        onAddElement={this.add.bind(this)}
+                        onRemoveElements={this.remove.bind(this)}
+                    />
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        background: '#f6f6f6',
+                        padding: '6px',
+                        boxShadow: '0px 6px 14px 0px #0000003d, 0px 2px 3px 0px #00000040',
+                        marginLeft: '10px',
+                        marginTop: 0,
+                    }}>
+                        <h4 style={{margin: '0 0 10px 0'}}>Raw IOC definition</h4>
+                        <pre>{JSON.stringify(this.state.value, null, '   ')}</pre>
+                    </div>
                 </div>
-            </div>
-                </FormControl>
+            </FormControl>
         );
     }
 }

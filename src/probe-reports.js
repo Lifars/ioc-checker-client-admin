@@ -32,11 +32,13 @@ export const ProbeReportShow = props => (
             <DateField source="created"/>
             <DateField source="updated"/>
             <DateField source="probeTimestamp" label="Scan date"/>
-            <ReferenceManyField pagination={<Pagination/>} perPage={25} reference="found_iocs" target="ProbeReports"
+            <ReferenceManyField pagination={<Pagination/>} perPage={10} reference="found_iocs" target="ProbeReports"
                                 label={"Found IOCs"} link="show">
                 <Datagrid>
-                    <TextField source="iocId" label={"Id"}/>
-                    <ReferenceField source="iocId" reference="iocs" link={false}>
+                    <ReferenceField source="iocId" reference="iocs" link="edit" label="IOC">
+                        <TextField source="id"/>
+                    </ReferenceField>
+                    <ReferenceField source="iocId" reference="iocs" link={false} label="Definition">
                         <JsonField source="definition"/>
                     </ReferenceField>
                 </Datagrid>
