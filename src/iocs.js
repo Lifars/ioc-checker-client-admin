@@ -557,24 +557,9 @@ const iocEntrySchema = {
             ],
             "title": "The CertsCheck Schema",
             "required": [
-                // "search",
                 "name"
             ],
             "properties": {
-                // "search": {
-                //     "$id": "#/properties/certsCheck/searchType",
-                //     "type": "string",
-                //     "enum": [
-                //         "DOMAIN",
-                //         "ISSUER"
-                //     ],
-                //     "title": "The CertsCheck SearchType Schema",
-                //     "default": "",
-                //     "examples": [
-                //         "DOMAIN", "ISSUER"
-                //     ],
-                //     "pattern": "^(.*)$"
-                // },
                 "name": {
                     "$id": "#/properties/certsCheck/name",
                     "type": "string",
