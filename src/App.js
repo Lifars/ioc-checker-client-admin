@@ -16,6 +16,7 @@ import primaryColor from '@material-ui/core/colors/deepPurple';
 import secondaryColor from '@material-ui/core/colors/purple';
 import {FeedSourceCreate, FeedSourceEdit, FeedSourceList} from "./feed-sources";
 import {List} from "@material-ui/core";
+import MyLayout from "./MyLayout";
 
 const MyLoginPage = () => <Login backgroundImage={null} />;
 
@@ -53,6 +54,7 @@ const myTheme = createMuiTheme({
 const dataProvider = iocServerDataProvider();//jsonServerProvider('http://jsonplaceholder.typicode.com');
 const App = () => (
     <Admin
+        layout={MyLayout}
         authProvider={myAuthProvider}
         dashboard={Dashboard}
         dataProvider={dataProvider}
