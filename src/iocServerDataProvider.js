@@ -1,8 +1,9 @@
 import {stringify} from 'query-string';
 import {fetchUtils, DataProvider} from 'ra-core';
+import config from "./config";
 
 // SET THE BACKEND URL
-const server = 'http://127.0.0.1:8080/api/admin';
+const server = config.api_url;
 
 
 // LEAVE THE REST AS IS
