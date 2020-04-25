@@ -1,5 +1,30 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Create file `.env` in this directory with content
+```dotenv
+# URL of running ioc-checker-server
+API_URL=...
+# URL of running authentication server
+AUTH_URL=...
+# Path to authorization endpoint that will be concatenated with AUTH_URL
+AUTHORIZATION_ENDPOINT=...
+# Path to access token endpoint that will be concatenated with AUTH_URL
+ACCESS_TOKEN_ENDPOINT=...
+# OAuth client id, must taken from authentication server configuration
+CLIENT_ID=...
+# OAuth client secret, must be taken from authentication server configuration
+CLIENT_SECRET=...
+```
+Example of `.env` file (assuming KeyCloak authentication server)
+```dotenv
+API_URL=http://127.0.0.1:8080/api/fe
+AUTH_URL=http://192.168.126.183:8080/auth"
+AUTHORIZATION_ENDPOINT=/realms/Smurfs/protocol/openid-connect/auth
+ACCESS_TOKEN_ENDPOINT=/realms/Smurfs/protocol/openid-connect/token
+CLIENT_ID=ioc-checker-fe
+CLIENT_SECRET=99cc4d4b-3cd5-42ff-9a59-35cd14dd5a91
+```
+
 ## Available Scripts
 
 In the project directory, you can run:

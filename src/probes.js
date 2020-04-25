@@ -1,18 +1,20 @@
+import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import {
     List,
     Datagrid,
     TextField,
     DateField,
-    PasswordInput,
     ReferenceField,
     Create,
+    Edit,
     SimpleForm,
     TextInput,
     ReferenceInput,
     SelectInput,
     DateInput,
-    Show, SimpleShowLayout
+    Show,
+    SimpleShowLayout
 } from 'react-admin';
 
 export const ProbeList = props => (
@@ -37,9 +39,22 @@ export const ProbeCreate = props => (
             <ReferenceInput source="userId" reference="users" label={"Owner"}>
                 <SelectInput optionText="email"/>
             </ReferenceInput>
-            <PasswordInput source="apiKeyPlain"/>
+            <TextInput source="apiKeyPlain" label={"Api Key - Save it somewhere, you won't be able to see this again"} disabled={true} initialValue={uuidv4()}/>
         </SimpleForm>
     </Create>
+);
+
+export const ProbeEdit = props => (
+    <Edit {...props}>
+        <SimpleForm>
+            <TextInput source="name" />
+            <DateInput source="expires" />
+            <ReferenceInput source="userId" reference="users" label={"Owner"}>
+                <SelectInput optionText="email"/>
+            </ReferenceInput>
+            <TextInput source="apiKeyPlain" label={"Api Key - Save it somewhere, you won't be able to see this again"} disabled={true} initialValue={uuidv4()}/>
+        </SimpleForm>
+    </Edit>
 );
 
 export const ProbeShow = props => (

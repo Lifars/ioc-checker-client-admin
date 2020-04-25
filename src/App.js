@@ -3,7 +3,7 @@ import {Admin, Resource, Login} from 'react-admin';
 import iocServerDataProvider from "./iocServerDataProvider";
 import {IocCreate, IocEdit, IocList, IocShow} from "./iocs"
 import {UserList} from "./users";
-import {ProbeCreate, ProbeList, ProbeShow} from "./probes";
+import {ProbeCreate, ProbeEdit, ProbeList, ProbeShow} from "./probes";
 import {ProbeReportList, ProbeReportShow} from "./probe-reports";
 import UserIcon from '@material-ui/icons/Group';
 import ReportIcon from '@material-ui/icons/Report';
@@ -47,6 +47,8 @@ const myTheme = createMuiTheme({
     },
 });
 
+const ADMIN = "SMURF_ADMIN";
+
 const dataProvider = iocServerDataProvider();//jsonServerProvider('http://jsonplaceholder.typicode.com');
 const App = () => (
     <Admin
@@ -59,13 +61,14 @@ const App = () => (
         {permissions => [
             <Resource name="iocs"
                       list={IocList}
-                      edit={permissions === 'ADMIN' ? IocEdit : null}
-                      create={permissions === 'ADMIN' ? IocCreate : null}
+                      edit={permissions === ADMIN ? IocEdit : null}
+                      create={permissions === ADMIN ? IocCreate : null}
                       show={IocShow}
             />,
             <Resource name="probes"
                       list={ProbeList}
-                      create={permissions === 'ADMIN' ? ProbeCreate : null}
+                      create={permissions === ADMIN ? ProbeCreate : null}
+                      edit={ProbeEdit}
                       icon={DevicesIcon}
                       show={ProbeShow}
             />,
@@ -75,7 +78,7 @@ const App = () => (
                       icon={ReportIcon}
             />,
             <Resource name="users" list={UserList} icon={UserIcon}/>,
-            permissions === 'ADMIN' ?
+            permissions === ADMIN ?
                 <Resource name="feed_sources"
                           list={FeedSourceList}
                           create={FeedSourceCreate}

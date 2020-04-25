@@ -1,14 +1,26 @@
-import config from "./config";
 import decodeJwt from 'jwt-decode';
 
-const server = config.auth_url;
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const accessTokenEndpoint = `${process.env.REACT_APP_AUTH_URL}${process.env.REACT_APP_ACCESS_TOKEN_ENDPOINT}`;
 
 const authProvider = {
-    login: ({ username, password }) =>  {
-        const request = new Request(`${server}/login`, {
+    login: ({username, password}) =>  {
+        const oAuthParams = {
+            grant_type: "password",
+            username: username,
+            password: password,
+            client_secret: process.env.REACT_APP_CLIENT_SECRET,
+            client_id: clientId,
+        };
+        const body = Object.keys(oAuthParams).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(oAuthParams[key]);
+        }).join('&');
+        const request = new Request(accessTokenEndpoint, {
             method: 'POST',
-            body: JSON.stringify({ username, password }),
-            headers: new Headers({ 'Content-Type': 'application/json' }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            },
+            body
         });
         return fetch(request)
             .then(response => {
@@ -17,10 +29,10 @@ const authProvider = {
                 }
                 return response.json();
             })
-            .then(({ token }) => {
-                const decodedToken = decodeJwt(token);
-                localStorage.setItem('token', token);
-                localStorage.setItem('permissions', decodedToken.permissions);
+            .then(( {access_token} ) => {
+                const decodedToken = decodeJwt(access_token);
+                localStorage.setItem('token', access_token);
+                localStorage.setItem('permissions', decodedToken.realm_access.roles);
             });
     },
     logout: () => {

@@ -1,13 +1,6 @@
-import {stringify} from 'query-string';
 import {fetchUtils, DataProvider} from 'ra-core';
-import config from "./config";
 
-// SET THE BACKEND URL
-const server = config.api_url;
-
-
-// LEAVE THE REST AS IS
-/////////////////////////////////////////////////////
+const server = process.env.REACT_APP_API_URL;
 
 const authenticatedClient = (url, options = {}) => {
     if (!options.headers) {
