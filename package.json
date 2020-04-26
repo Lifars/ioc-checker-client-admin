@@ -24,7 +24,7 @@
     "react-json-view": "latest",
     "react-markdown": "^4.0.8",
     "react-mde": "latest",
-    "react-scripts": "3.3.0",
+    "react-scripts": "^3.4.0",
     "showdown": "^1.9.0",
     "yarn": "^1.21.1"
   },

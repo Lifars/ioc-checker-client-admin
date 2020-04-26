@@ -11,11 +11,11 @@ import DevicesIcon from '@material-ui/icons/Devices';
 import TransformIcon from '@material-ui/icons/Transform';
 import Dashboard from './Dashboard';
 import myAuthProvider from './authProvider';
-import {createMuiTheme} from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import {FeedSourceCreate, FeedSourceEdit, FeedSourceList} from "./feed-sources";
 import MyLayout from "./MyLayout";
 
-const MyLoginPage = () => <Login backgroundImage={null}/>;
+const MyLoginPage = () => <Login backgroundImage={null} />;
 
 const purple = {
     50: '#f3e5f5',
@@ -47,6 +47,7 @@ const myTheme = createMuiTheme({
     },
 });
 
+
 const dataProvider = iocServerDataProvider();//jsonServerProvider('http://jsonplaceholder.typicode.com');
 const App = () => (
     <Admin
@@ -56,35 +57,18 @@ const App = () => (
         dataProvider={dataProvider}
         loginPage={MyLoginPage}
         theme={myTheme}>
-        {permissions => [
-            <Resource name="iocs"
-                      list={IocList}
-                      edit={permissions === 'ADMIN' ? IocEdit : null}
-                      create={permissions === 'ADMIN' ? IocCreate : null}
-                      show={IocShow}
-            />,
-            <Resource name="probes"
-                      list={ProbeList}
-                      create={permissions === 'ADMIN' ? ProbeCreate : null}
-                      icon={DevicesIcon}
-                      show={ProbeShow}
-            />,
-            <Resource name="probe_reports"
-                      list={ProbeReportList}
-                      show={ProbeReportShow}
-                      icon={ReportIcon}
-            />,
-            <Resource name="users" list={UserList} icon={UserIcon}/>,
-            permissions === 'ADMIN' ?
-                <Resource name="feed_sources"
-                          list={FeedSourceList}
-                          create={FeedSourceCreate}
-                          edit={FeedSourceEdit}
-                          icon={TransformIcon}
-                /> : null,
-            <Resource name="found_iocs"/>,
-        ]}
+        <Resource name="iocs" list={IocList} edit={IocEdit} create={IocCreate} show={IocShow}/>
+        {/*<Resource name="iocs" list={IocList} edit={EditGuesser}/>*/}
+        <Resource name="probes" list={ProbeList} create={ProbeCreate} icon={DevicesIcon} show={ProbeShow}/>
+        <Resource name="probe_reports" list={ProbeReportList} show={ProbeReportShow} icon={ReportIcon}/>
+        {/*<Resource name="probe_reports" list={ListGuesser}/>*/}
+        <Resource name="users" list={UserList} icon={UserIcon}/>
+        <Resource name="feed_sources" list={FeedSourceList} create={FeedSourceCreate} edit={FeedSourceEdit} icon={TransformIcon}/>
+        <Resource name="found_iocs"/>
+        {/*<Resource name="posts" list={ListGuesser} edit={EditGuesser}/>*/}
     </Admin>
 );
+
+
 
 export default App;
