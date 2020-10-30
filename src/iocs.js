@@ -39,7 +39,7 @@ export const IocList = props => (
             <TextField source="id"/>
             <TextField source="name"/>
             {/*<JSONEView source="definition" label="Definition"/>*/}
-            <JsonField source="definition"/>
+            {/*<JsonField source="definition"/>*/}
             <DateField source="created"/>
             <DateField source="updated"/>
             <EditButton/>
@@ -47,54 +47,155 @@ export const IocList = props => (
     </List>
 );
 
-export const IocShow = props => (
+export const IocShow = (props: any) => (
     <Show {...props}>
-        <SimpleShowLayout>
-            <TextField source="id"/>
-            <TextField source="name"/>
-            {/*<JSONEView source="definition" label="Definition"/>*/}
-            <JsonField source="definition"/>
-            <DateField source="created"/>
-            <DateField source="updated"/>
-        </SimpleShowLayout>
+        <TabbedShowLayout>
+            <Tab label={"General"}>
+                <TextField source="id"/>
+                <TextField source="name"/>
+                <DateField source="created" showTime={true}/>
+                <DateField source="updated" showTime={true}/>
+                <TextField source="evalPolicy" label="Evaluation" helperText="ALL or ONE needs to be found"/>
+            </Tab>
+            <Tab label={"Files"}>
+                <TextArrayField source="searchPaths" label={"Files to search"}
+                                helperText="Supports * and ? wildcards, and hashes in hex format."/>
+                <TextArrayField source="searchProcesses" label={"Processes to search"}
+                                helperText="Supports * and ? wildcards, and hashes in hex format."/>
+            </Tab>
+            <Tab label={"Windows"}>
+                <TextArrayField source="searchRegistries" label={"Registries to search"}/>
+                <TextArrayField source="searchMutexes" label={"Mutexes to search"}/>
+            </Tab>
+            <Tab label={"Network"}>
+                <TextArrayField source="searchDns" label={"DNSs to search"}/>
+                <TextArrayField source="searchConns" label={"Network connections to search"}
+                                helperText="Supports * and ? wildcards, and hashes in hex format."/>
+                <TextArrayField source="searchCerts" label={"Certificates to search"}/>
+            </Tab>
+        </TabbedShowLayout>
     </Show>
 );
 
+// export const IocShow = props => (
+//     <Show {...props}>
+//         <SimpleShowLayout>
+//             <TextField source="id"/>
+//             <TextField source="name"/>
+//             {/*<JSONEView source="definition" label="Definition"/>*/}
+//             <JsonField source="definition"/>
+//             <DateField source="created"/>
+//             <DateField source="updated"/>
+//         </SimpleShowLayout>
+//     </Show>
+// );
 
-export const IocEdit = props => (
-    // <Edit aside={<Aside/>} {...props}>
-    <Edit {...props}>
-        <SimpleForm>
+
+
+function iocSaveForm() {
+    return <TabbedForm>
+        <FormTab label={"General"}>
             <TextInput disabled source="id"/>
             <TextInput source="name"/>
-            <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
-            {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
-            {/*<TextInput source="definition"*/}
-            {/*           label="Definition"*/}
-            {/*           multiline={true}*/}
-            {/*    // parse={v => JSON.parse(v)}*/}
-            {/*           format={v => JSON.stringify(v, null, 4)}*/}
-            {/*    // format={v => JSON.stringify(v)}*/}
-            {/*           fullWidth={true}/>*/}
-            {/*/!*<JSONEView source="name" />*!/*/}
-        </SimpleForm>
+            <SelectInput source="evalPolicy" label="Evaluation" helperText="ALL or ONE needs to be found" choices={[
+                {id: 'ONE', name: 'ONE'},
+                {id: 'ALL', name: 'ALL'},
+            ]}/>
+        </FormTab>
+        <FormTab label={"Files"}>
+            <ArrayInput source="searchPaths"
+                        helperText="Supports * and ? wildcards and MD5/SHA-1/SHA-256 hashes in hex format">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="searchProcesses"
+                        helperText="Supports * and ? wildcards and MD5/SHA-1/SHA-256 hashes in hex format">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+        </FormTab>
+        <FormTab label={"Windows"}>
+            <ArrayInput source="searchRegistries"
+                        helperText="Supports * and ? wildcards. Format: KEY\\...\\VALUE_NAME=VALUE">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="searchMutexes">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+        </FormTab>
+        <FormTab label={"Network"}>
+            <ArrayInput source="searchDns">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="searchConns" helperText="Supports * and ? wildcards.">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="searchCerts">
+                <SimpleFormIterator>
+                    <TextInput/>
+                </SimpleFormIterator>
+            </ArrayInput>
+        </FormTab>
+    </TabbedForm>;
+}
+
+export const IocEdit = (props: any) => (
+    // <Edit aside={<Aside/>} {...props}>
+    <Edit {...props}>
+        {iocSaveForm()}
     </Edit>
 );
 
-export const IocCreate = props => (
+export const IocCreate = (props: any) => (
     <Create {...props}>
-        <SimpleForm>
-            <TextInput source="name" label="Name"/>
-            <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
-            {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
-            {/*<TextInput source="definition"*/}
-            {/*           label="Definition"*/}
-            {/*           multiline={true}*/}
-            {/*           format={v => JSON.stringify(v, null, 4)}*/}
-            {/*           fullWidth={true}/>*/}
-        </SimpleForm>
+        {iocSaveForm()}
     </Create>
 );
+
+// export const IocEdit = props => (
+//     // <Edit aside={<Aside/>} {...props}>
+//     <Edit {...props}>
+//         <SimpleForm>
+//             <TextInput disabled source="id"/>
+//             <TextInput source="name"/>
+//             <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
+//             {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
+//             {/*<TextInput source="definition"*/}
+//             {/*           label="Definition"*/}
+//             {/*           multiline={true}*/}
+//             {/*    // parse={v => JSON.parse(v)}*/}
+//             {/*           format={v => JSON.stringify(v, null, 4)}*/}
+//             {/*    // format={v => JSON.stringify(v)}*/}
+//             {/*           fullWidth={true}/>*/}
+//             {/*/!*<JSONEView source="name" />*!/*/}
+//         </SimpleForm>
+//     </Edit>
+// );
+//
+// export const IocCreate = props => (
+//     <Create {...props}>
+//         <SimpleForm>
+//             <TextInput source="name" label="Name"/>
+//             <RaJsonObjectInput source="definition" schema={iocDefinitionSchema}/>
+//             {/*<RaJsonInput source="definition" schema={iocEntrySchema}/>*/}
+//             {/*<TextInput source="definition"*/}
+//             {/*           label="Definition"*/}
+//             {/*           multiline={true}*/}
+//             {/*           format={v => JSON.stringify(v, null, 4)}*/}
+//             {/*           fullWidth={true}/>*/}
+//         </SimpleForm>
+//     </Create>
+// );
 
 // const Aside = () => (
 //     <div style={{width: 200, margin: '1em'}}>
