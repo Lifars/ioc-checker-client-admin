@@ -8,8 +8,15 @@ import {
     EditButton,
     Edit,
     SimpleForm,
+    SelectInput,
+    TabbedForm,
+    FormTab,
+    TabbedShowLayout,
+    Tab,
     TextInput,
     Create,
+    ArrayInput,
+    SimpleFormIterator,
     Show,
     SimpleShowLayout
 } from 'react-admin';
@@ -20,6 +27,7 @@ import Typography from '@material-ui/core/Typography';
 import {TextArea} from "react-mde";
 import ReactJson from "react-json-view";
 import {SchemaTypes} from 'object-editor-react';
+import TextArrayField from "./text-array-field";
 
 
 // import { JSONEditor, JSONEView } from 'ra-input-json';
